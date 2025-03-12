@@ -1,0 +1,263 @@
+/**
+ * Social Connect Admin CSS
+ */
+
+/* Fix específico para cards e tabelas no Twitter */
+.wrap .card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 20px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.wrap .card table.wp-list-table,
+div.tab-content table.wp-list-table,
+.widefat {
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+    box-sizing: border-box !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Estilos para tabela de contas conectadas */
+.card h3 {
+    margin-top: 0 !important;
+}
+
+/* Estilos para tabs e conteúdo */
+.tab-content {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Cores para tier */
+.tier-1 { color: #9146FF; }
+.tier-2 { color: #2980b9; }
+.tier-3 { color: #c0392b; }
+
+/* Estilos para subsubsub */
+.subsubsub {
+    margin-bottom: 20px;
+}
+
+.subsubsub a.current {
+    font-weight: 600;
+    color: #000;
+}
+
+/* Estilos para seções de configurações */
+.api-settings, .rewards-settings {
+    margin-top: 20px;
+    width: 100% !important;
+}
+
+/* Força largura completa em várias telas */
+.column-avatar,
+.column-wp-username,
+.column-twitter-username,
+.column-follows,
+.column-account-created,
+.column-connection-date,
+.column-actions {
+    width: auto !important;
+}
+
+/* Define largura específica para a coluna de métricas */
+.column-metrics {
+    width: 300px !important;
+}
+
+/* Estilo para as métricas do Twitter */
+.twitter-metrics {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.metric-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    padding: 6px 10px;
+    min-width: unset;
+    white-space: nowrap;
+    flex: 1;
+}
+
+.metric-item .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+}
+
+.metric-item .dashicons-twitter {
+    color: #1DA1F2;
+}
+
+.metric-item .dashicons-groups {
+    color: #4CAF50;
+}
+
+.metric-item .dashicons-admin-users {
+    color: #9146FF;
+}
+
+.metric-content {
+    display: flex;
+    flex-direction: column;
+    margin-right: 2px;
+}
+
+.metric-value {
+    font-weight: bold;
+    font-size: 13px;
+    color: #333;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.metric-label {
+    font-size: 10px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+}
+
+/* Estilos para o metabox de Twitter no perfil de usuário */
+.twitter-profile-card {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.twitter-profile-card .profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.twitter-profile-card .profile-image {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.twitter-profile-card .profile-info {
+    flex: 1;
+}
+
+.twitter-profile-card .profile-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+}
+
+.twitter-profile-card .profile-info p {
+    margin: 0 0 5px 0;
+}
+
+.twitter-profile-card .meta-info {
+    color: #666;
+    font-size: 12px;
+}
+
+.twitter-profile-card .twitter-metrics-wrapper {
+    margin-bottom: 25px;
+}
+
+.twitter-profile-card .twitter-metrics {
+    background-color: white;
+    border-radius: 6px;
+    padding: 15px;
+    gap: 15px;
+}
+
+.twitter-profile-card .metric-item {
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.twitter-profile-card .twitter-recent-posts {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.twitter-profile-card .twitter-recent-posts h4 {
+    margin-top: 0;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.twitter-profile-card .tweets-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.twitter-profile-card .tweet-item {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.twitter-profile-card .tweet-content {
+    margin-bottom: 10px;
+}
+
+.twitter-profile-card .tweet-content p {
+    margin: 0 0 10px 0;
+}
+
+.twitter-profile-card .tweet-metrics {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #666;
+}
+
+.twitter-profile-card .tweet-metric {
+    display: flex;
+    align-items: center;
+}
+
+.twitter-profile-card .tweet-metric .dashicons {
+    margin-right: 5px;
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+.twitter-profile-card .tweet-date {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.twitter-profile-card .tweet-link {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 12px;
+    color: #1DA1F2;
+}
+
+.twitter-profile-card .twitter-actions {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
