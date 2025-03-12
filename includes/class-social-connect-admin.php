@@ -445,11 +445,45 @@ class Social_Connect_Admin {
             'sanitize_callback' => 'sanitize_text_field',
         ));
         
+        // Configurações de benefícios da Twitch
+        register_setting('social_connect_twitch', 'social_connect_twitch_benefit1', array(
+            'type' => 'string',
+            'default' => __('Acesso a conteúdo exclusivo', 'social-connect'),
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+        register_setting('social_connect_twitch', 'social_connect_twitch_benefit2', array(
+            'type' => 'string',
+            'default' => __('Recompensas por assinatura', 'social-connect'),
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+        register_setting('social_connect_twitch', 'social_connect_twitch_benefit3', array(
+            'type' => 'string',
+            'default' => __('Notificações personalizadas', 'social-connect'),
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+        
         // Grupo de configurações Twitter/X
         register_setting('social_connect_twitter', 'social_connect_twitter_client_id');
         register_setting('social_connect_twitter', 'social_connect_twitter_client_secret');
         register_setting('social_connect_twitter', 'social_connect_twitter_redirect_uri');
         register_setting('social_connect_twitter', 'social_connect_twitter_username');
+        
+        // Configurações de benefícios do Twitter
+        register_setting('social_connect_twitter', 'social_connect_twitter_benefit1', array(
+            'type' => 'string',
+            'default' => __('Compartilhamento automático', 'social-connect'),
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+        register_setting('social_connect_twitter', 'social_connect_twitter_benefit2', array(
+            'type' => 'string',
+            'default' => __('Notificações personalizadas', 'social-connect'),
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+        register_setting('social_connect_twitter', 'social_connect_twitter_benefit3', array(
+            'type' => 'string',
+            'default' => __('Conteúdo exclusivo para seguidores', 'social-connect'),
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
         
         // Grupo de configurações Steam
         register_setting('social_connect_steam', 'social_connect_steam_api_key');
@@ -622,6 +656,41 @@ class Social_Connect_Admin {
             'social_connect_twitch_rewards_section'
         );
         
+        // Seção para configurações de benefícios da Twitch
+        add_settings_section(
+            'social_connect_twitch_benefits_section',
+            __('Configurações de Benefícios', 'social-connect'),
+            array($this, 'twitch_benefits_section_callback'),
+            'social_connect_twitch'
+        );
+        
+        // Campo para benefício 1
+        add_settings_field(
+            'social_connect_twitch_benefit1',
+            __('Benefício 1', 'social-connect'),
+            array($this, 'twitch_benefit1_callback'),
+            'social_connect_twitch',
+            'social_connect_twitch_benefits_section'
+        );
+        
+        // Campo para benefício 2
+        add_settings_field(
+            'social_connect_twitch_benefit2',
+            __('Benefício 2', 'social-connect'),
+            array($this, 'twitch_benefit2_callback'),
+            'social_connect_twitch',
+            'social_connect_twitch_benefits_section'
+        );
+        
+        // Campo para benefício 3
+        add_settings_field(
+            'social_connect_twitch_benefit3',
+            __('Benefício 3', 'social-connect'),
+            array($this, 'twitch_benefit3_callback'),
+            'social_connect_twitch',
+            'social_connect_twitch_benefits_section'
+        );
+        
         // Seção principal para o Twitter/X
         add_settings_section(
             'social_connect_twitter_section',
@@ -672,6 +741,41 @@ class Social_Connect_Admin {
             array($this, 'twitter_redirect_uri_callback'),
             'social_connect_twitter',
             'social_connect_twitter_api_section'
+        );
+        
+        // Seção para configurações de benefícios do Twitter
+        add_settings_section(
+            'social_connect_twitter_benefits_section',
+            __('Configurações de Benefícios', 'social-connect'),
+            array($this, 'twitter_benefits_section_callback'),
+            'social_connect_twitter'
+        );
+        
+        // Campo para benefício 1
+        add_settings_field(
+            'social_connect_twitter_benefit1',
+            __('Benefício 1', 'social-connect'),
+            array($this, 'twitter_benefit1_callback'),
+            'social_connect_twitter',
+            'social_connect_twitter_benefits_section'
+        );
+        
+        // Campo para benefício 2
+        add_settings_field(
+            'social_connect_twitter_benefit2',
+            __('Benefício 2', 'social-connect'),
+            array($this, 'twitter_benefit2_callback'),
+            'social_connect_twitter',
+            'social_connect_twitter_benefits_section'
+        );
+        
+        // Campo para benefício 3
+        add_settings_field(
+            'social_connect_twitter_benefit3',
+            __('Benefício 3', 'social-connect'),
+            array($this, 'twitter_benefit3_callback'),
+            'social_connect_twitter',
+            'social_connect_twitter_benefits_section'
         );
     }
     
@@ -783,6 +887,40 @@ class Social_Connect_Admin {
     }
     
     /**
+     * Callback para seção de benefícios da Twitch.
+     */
+    public function twitch_benefits_section_callback() {
+        echo '<p>' . __('Configure os benefícios que serão exibidos para usuários na página de conexão com Twitch.', 'social-connect') . '</p>';
+    }
+    
+    /**
+     * Callback para campo benefício 1 da Twitch.
+     */
+    public function twitch_benefit1_callback() {
+        $benefit1 = get_option('social_connect_twitch_benefit1', __('Acesso a conteúdo exclusivo', 'social-connect'));
+        echo '<input type="text" id="social_connect_twitch_benefit1" name="social_connect_twitch_benefit1" value="' . esc_attr($benefit1) . '" class="regular-text">';
+        echo '<p class="description">' . __('Primeiro benefício exibido no card da Twitch.', 'social-connect') . '</p>';
+    }
+    
+    /**
+     * Callback para campo benefício 2 da Twitch.
+     */
+    public function twitch_benefit2_callback() {
+        $benefit2 = get_option('social_connect_twitch_benefit2', __('Recompensas por assinatura', 'social-connect'));
+        echo '<input type="text" id="social_connect_twitch_benefit2" name="social_connect_twitch_benefit2" value="' . esc_attr($benefit2) . '" class="regular-text">';
+        echo '<p class="description">' . __('Segundo benefício exibido no card da Twitch.', 'social-connect') . '</p>';
+    }
+    
+    /**
+     * Callback para campo benefício 3 da Twitch.
+     */
+    public function twitch_benefit3_callback() {
+        $benefit3 = get_option('social_connect_twitch_benefit3', __('Notificações personalizadas', 'social-connect'));
+        echo '<input type="text" id="social_connect_twitch_benefit3" name="social_connect_twitch_benefit3" value="' . esc_attr($benefit3) . '" class="regular-text">';
+        echo '<p class="description">' . __('Terceiro benefício exibido no card da Twitch.', 'social-connect') . '</p>';
+    }
+    
+    /**
      * Renderiza a página principal do admin.
      */
     public function display_admin_page() {
@@ -835,6 +973,10 @@ class Social_Connect_Admin {
                    class="nav-tab <?php echo $active_tab == 'rewards' ? 'nav-tab-active' : ''; ?>">
                     <?php _e('Recompensas', 'social-connect'); ?>
                 </a>
+                <a href="<?php echo esc_url($page_url . '&tab=benefits'); ?>" 
+                   class="nav-tab <?php echo $active_tab == 'benefits' ? 'nav-tab-active' : ''; ?>">
+                    <?php _e('Benefícios', 'social-connect'); ?>
+                </a>
             </h2>
             
             <!-- Conteúdo das abas -->
@@ -845,6 +987,8 @@ class Social_Connect_Admin {
                 $this->display_twitch_accounts_content();
             } elseif ($active_tab == 'rewards') {
                 $this->display_twitch_rewards_content();
+            } elseif ($active_tab == 'benefits') {
+                $this->display_twitch_benefits_content();
             }
             ?>
         </div>
@@ -852,8 +996,86 @@ class Social_Connect_Admin {
     }
     
     /**
-     * Renderiza o conteúdo da aba de configurações do Twitch.
+     * Renderiza o conteúdo da aba de benefícios do Twitch.
      */
+    private function display_twitch_benefits_content() {
+        ?>
+        <div class="tab-content">
+            <div class="notice notice-info">
+                <p><?php _e('Configure os benefícios que serão exibidos para usuários na página de conexão com Twitch.', 'social-connect'); ?></p>
+            </div>
+            
+            <div class="card" style="margin-top: 20px; padding: 20px;">
+                <form method="post" action="options.php">
+                    <?php
+                    settings_fields('social_connect_twitch');
+                    ?>
+                    <table class="form-table" role="presentation">
+                        <tr>
+                            <th scope="row"><label for="social_connect_twitch_benefit1"><?php _e('Benefício 1', 'social-connect'); ?></label></th>
+                            <td>
+                                <input type="text" id="social_connect_twitch_benefit1" name="social_connect_twitch_benefit1" value="<?php echo esc_attr(get_option('social_connect_twitch_benefit1', __('Acesso a conteúdo exclusivo', 'social-connect'))); ?>" class="regular-text">
+                                <p class="description"><?php _e('Primeiro benefício exibido no card da Twitch.', 'social-connect'); ?></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="social_connect_twitch_benefit2"><?php _e('Benefício 2', 'social-connect'); ?></label></th>
+                            <td>
+                                <input type="text" id="social_connect_twitch_benefit2" name="social_connect_twitch_benefit2" value="<?php echo esc_attr(get_option('social_connect_twitch_benefit2', __('Recompensas por assinatura', 'social-connect'))); ?>" class="regular-text">
+                                <p class="description"><?php _e('Segundo benefício exibido no card da Twitch.', 'social-connect'); ?></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="social_connect_twitch_benefit3"><?php _e('Benefício 3', 'social-connect'); ?></label></th>
+                            <td>
+                                <input type="text" id="social_connect_twitch_benefit3" name="social_connect_twitch_benefit3" value="<?php echo esc_attr(get_option('social_connect_twitch_benefit3', __('Notificações personalizadas', 'social-connect'))); ?>" class="regular-text">
+                                <p class="description"><?php _e('Terceiro benefício exibido no card da Twitch.', 'social-connect'); ?></p>
+                            </td>
+                        </tr>
+                    </table>
+                    <?php submit_button(__('Salvar Benefícios', 'social-connect')); ?>
+                </form>
+            </div>
+            
+            <div class="card" style="margin-top: 20px; padding: 20px;">
+                <h3><?php _e('Visualização dos Benefícios', 'social-connect'); ?></h3>
+                <p><?php _e('Veja como os benefícios serão exibidos para os usuários:', 'social-connect'); ?></p>
+                
+                <div class="benefit-preview" style="background: #1a1a1a; padding: 15px; border-radius: 8px; max-width: 400px; margin-top: 15px;">
+                    <h4 style="color: #f0f0f0; margin-bottom: 15px; font-size: 16px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);"><?php _e('Benefícios', 'social-connect'); ?></h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <?php 
+                        $benefit1 = get_option('social_connect_twitch_benefit1', __('Acesso a conteúdo exclusivo', 'social-connect'));
+                        $benefit2 = get_option('social_connect_twitch_benefit2', __('Recompensas por assinatura', 'social-connect'));
+                        $benefit3 = get_option('social_connect_twitch_benefit3', __('Notificações personalizadas', 'social-connect'));
+                        
+                        if (!empty(trim($benefit1))): ?>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 10px; color: #b0b0b0; font-size: 14px;">
+                                <span class="dashicons dashicons-yes-alt" style="color: #2ecc71; margin-right: 10px;"></span>
+                                <?php echo esc_html($benefit1); ?>
+                            </li>
+                        <?php endif; 
+                        
+                        if (!empty(trim($benefit2))): ?>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 10px; color: #b0b0b0; font-size: 14px;">
+                                <span class="dashicons dashicons-yes-alt" style="color: #2ecc71; margin-right: 10px;"></span>
+                                <?php echo esc_html($benefit2); ?>
+                            </li>
+                        <?php endif; 
+                        
+                        if (!empty(trim($benefit3))): ?>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 10px; color: #b0b0b0; font-size: 14px;">
+                                <span class="dashicons dashicons-yes-alt" style="color: #2ecc71; margin-right: 10px;"></span>
+                                <?php echo esc_html($benefit3); ?>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+    
     private function display_twitch_settings_content() {
         // Determinar qual subseção está ativa
         $current_section = isset($_GET['section']) ? sanitize_text_field($_GET['section']) : 'api';
@@ -1697,6 +1919,10 @@ class Social_Connect_Admin {
                    class="nav-tab <?php echo $active_tab == 'rewards' ? 'nav-tab-active' : ''; ?>">
                     <?php _e('Recompensas', 'social-connect'); ?>
                 </a>
+                <a href="<?php echo esc_url($page_url . '&tab=benefits'); ?>" 
+                   class="nav-tab <?php echo $active_tab == 'benefits' ? 'nav-tab-active' : ''; ?>">
+                    <?php _e('Benefícios', 'social-connect'); ?>
+                </a>
             </h2>
             
             <!-- Conteúdo das abas -->
@@ -1707,6 +1933,8 @@ class Social_Connect_Admin {
                 $this->display_twitter_accounts_content();
             } elseif ($active_tab == 'rewards') {
                 $this->display_twitter_rewards_content();
+            } elseif ($active_tab == 'benefits') {
+                $this->display_twitter_benefits_content();
             }
             ?>
         </div>
@@ -2139,10 +2367,125 @@ class Social_Connect_Admin {
     }
     
     /**
+     * Renderiza o conteúdo da aba de benefícios do Twitter.
+     */
+    private function display_twitter_benefits_content() {
+        ?>
+        <div class="tab-content">
+            <div class="notice notice-info">
+                <p><?php _e('Configure os benefícios que serão exibidos para usuários na página de conexão com X (Twitter).', 'social-connect'); ?></p>
+            </div>
+            
+            <div class="card" style="margin-top: 20px; padding: 20px;">
+                <form method="post" action="options.php">
+                    <?php
+                    settings_fields('social_connect_twitter');
+                    ?>
+                    <table class="form-table" role="presentation">
+                        <tr>
+                            <th scope="row"><label for="social_connect_twitter_benefit1"><?php _e('Benefício 1', 'social-connect'); ?></label></th>
+                            <td>
+                                <input type="text" id="social_connect_twitter_benefit1" name="social_connect_twitter_benefit1" value="<?php echo esc_attr(get_option('social_connect_twitter_benefit1', __('Compartilhamento automático', 'social-connect'))); ?>" class="regular-text">
+                                <p class="description"><?php _e('Primeiro benefício exibido no card do X (Twitter).', 'social-connect'); ?></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="social_connect_twitter_benefit2"><?php _e('Benefício 2', 'social-connect'); ?></label></th>
+                            <td>
+                                <input type="text" id="social_connect_twitter_benefit2" name="social_connect_twitter_benefit2" value="<?php echo esc_attr(get_option('social_connect_twitter_benefit2', __('Notificações personalizadas', 'social-connect'))); ?>" class="regular-text">
+                                <p class="description"><?php _e('Segundo benefício exibido no card do X (Twitter).', 'social-connect'); ?></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="social_connect_twitter_benefit3"><?php _e('Benefício 3', 'social-connect'); ?></label></th>
+                            <td>
+                                <input type="text" id="social_connect_twitter_benefit3" name="social_connect_twitter_benefit3" value="<?php echo esc_attr(get_option('social_connect_twitter_benefit3', __('Conteúdo exclusivo para seguidores', 'social-connect'))); ?>" class="regular-text">
+                                <p class="description"><?php _e('Terceiro benefício exibido no card do X (Twitter).', 'social-connect'); ?></p>
+                            </td>
+                        </tr>
+                    </table>
+                    <?php submit_button(__('Salvar Benefícios', 'social-connect')); ?>
+                </form>
+            </div>
+            
+            <div class="card" style="margin-top: 20px; padding: 20px;">
+                <h3><?php _e('Visualização dos Benefícios', 'social-connect'); ?></h3>
+                <p><?php _e('Veja como os benefícios serão exibidos para os usuários:', 'social-connect'); ?></p>
+                
+                <div class="benefit-preview" style="background: #1a1a1a; padding: 15px; border-radius: 8px; max-width: 400px; margin-top: 15px;">
+                    <h4 style="color: #f0f0f0; margin-bottom: 15px; font-size: 16px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);"><?php _e('Benefícios', 'social-connect'); ?></h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <?php 
+                        $benefit1 = get_option('social_connect_twitter_benefit1', __('Compartilhamento automático', 'social-connect'));
+                        $benefit2 = get_option('social_connect_twitter_benefit2', __('Notificações personalizadas', 'social-connect'));
+                        $benefit3 = get_option('social_connect_twitter_benefit3', __('Conteúdo exclusivo para seguidores', 'social-connect'));
+                        
+                        if (!empty(trim($benefit1))): ?>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 10px; color: #b0b0b0; font-size: 14px;">
+                                <span class="dashicons dashicons-yes-alt" style="color: #2ecc71; margin-right: 10px;"></span>
+                                <?php echo esc_html($benefit1); ?>
+                            </li>
+                        <?php endif; 
+                        
+                        if (!empty(trim($benefit2))): ?>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 10px; color: #b0b0b0; font-size: 14px;">
+                                <span class="dashicons dashicons-yes-alt" style="color: #2ecc71; margin-right: 10px;"></span>
+                                <?php echo esc_html($benefit2); ?>
+                            </li>
+                        <?php endif; 
+                        
+                        if (!empty(trim($benefit3))): ?>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 10px; color: #b0b0b0; font-size: 14px;">
+                                <span class="dashicons dashicons-yes-alt" style="color: #2ecc71; margin-right: 10px;"></span>
+                                <?php echo esc_html($benefit3); ?>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+    
+    /**
      * Callback para seção Twitter.
      */
     public function twitter_section_callback() {
         echo '<p>' . __('Gerencie as integrações e funcionalidades relacionadas ao X (antigo Twitter).', 'social-connect') . '</p>';
+    }
+    
+    /**
+     * Callback para seção de benefícios do Twitter.
+     */
+    public function twitter_benefits_section_callback() {
+        echo '<p>' . __('Configure os benefícios que serão exibidos para usuários na página de conexão com X (Twitter).', 'social-connect') . '</p>';
+    }
+    
+    /**
+     * Callback para campo benefício 1 do Twitter.
+     */
+    public function twitter_benefit1_callback() {
+        $benefit1 = get_option('social_connect_twitter_benefit1', __('Compartilhamento automático', 'social-connect'));
+        echo '<input type="text" id="social_connect_twitter_benefit1" name="social_connect_twitter_benefit1" value="' . esc_attr($benefit1) . '" class="regular-text">';
+        echo '<p class="description">' . __('Primeiro benefício exibido no card do X (Twitter).', 'social-connect') . '</p>';
+    }
+    
+    /**
+     * Callback para campo benefício 2 do Twitter.
+     */
+    public function twitter_benefit2_callback() {
+        $benefit2 = get_option('social_connect_twitter_benefit2', __('Notificações personalizadas', 'social-connect'));
+        echo '<input type="text" id="social_connect_twitter_benefit2" name="social_connect_twitter_benefit2" value="' . esc_attr($benefit2) . '" class="regular-text">';
+        echo '<p class="description">' . __('Segundo benefício exibido no card do X (Twitter).', 'social-connect') . '</p>';
+    }
+    
+    /**
+     * Callback para campo benefício 3 do Twitter.
+     */
+    public function twitter_benefit3_callback() {
+        $benefit3 = get_option('social_connect_twitter_benefit3', __('Conteúdo exclusivo para seguidores', 'social-connect'));
+        echo '<input type="text" id="social_connect_twitter_benefit3" name="social_connect_twitter_benefit3" value="' . esc_attr($benefit3) . '" class="regular-text">';
+        echo '<p class="description">' . __('Terceiro benefício exibido no card do X (Twitter).', 'social-connect') . '</p>';
     }
     
     /**

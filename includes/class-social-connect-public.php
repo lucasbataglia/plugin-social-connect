@@ -327,9 +327,22 @@ class Social_Connect_Public {
                     
                     <div class="social-card-benefits">
                         <ul class="benefit-list">
-                            <li><i class="dashicons dashicons-yes-alt"></i> <?php _e('Acesso a conteúdo exclusivo', 'social-connect'); ?></li>
-                            <li><i class="dashicons dashicons-yes-alt"></i> <?php _e('Recompensas por assinatura', 'social-connect'); ?></li>
-                            <li><i class="dashicons dashicons-yes-alt"></i> <?php _e('Notificações personalizadas', 'social-connect'); ?></li>
+                            <?php 
+                            $benefit1 = get_option('social_connect_twitch_benefit1', __('Acesso a conteúdo exclusivo', 'social-connect'));
+                            $benefit2 = get_option('social_connect_twitch_benefit2', __('Recompensas por assinatura', 'social-connect'));
+                            $benefit3 = get_option('social_connect_twitch_benefit3', __('Notificações personalizadas', 'social-connect'));
+                            
+                            if (!empty(trim($benefit1))): ?>
+                                <li><i class="dashicons dashicons-yes-alt"></i> <?php echo esc_html($benefit1); ?></li>
+                            <?php endif; 
+                            
+                            if (!empty(trim($benefit2))): ?>
+                                <li><i class="dashicons dashicons-yes-alt"></i> <?php echo esc_html($benefit2); ?></li>
+                            <?php endif; 
+                            
+                            if (!empty(trim($benefit3))): ?>
+                                <li><i class="dashicons dashicons-yes-alt"></i> <?php echo esc_html($benefit3); ?></li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                     
@@ -402,9 +415,22 @@ class Social_Connect_Public {
                     
                     <div class="social-card-benefits">
                         <ul class="benefit-list">
-                            <li><i class="dashicons dashicons-yes-alt"></i> <?php _e('Compartilhamento automático', 'social-connect'); ?></li>
-                            <li><i class="dashicons dashicons-yes-alt"></i> <?php _e('Notificações personalizadas', 'social-connect'); ?></li>
-                            <li><i class="dashicons dashicons-yes-alt"></i> <?php _e('Conteúdo exclusivo para seguidores', 'social-connect'); ?></li>
+                            <?php 
+                            $benefit1 = get_option('social_connect_twitter_benefit1', __('Compartilhamento automático', 'social-connect'));
+                            $benefit2 = get_option('social_connect_twitter_benefit2', __('Notificações personalizadas', 'social-connect'));
+                            $benefit3 = get_option('social_connect_twitter_benefit3', __('Conteúdo exclusivo para seguidores', 'social-connect'));
+                            
+                            if (!empty(trim($benefit1))): ?>
+                                <li><i class="dashicons dashicons-yes-alt"></i> <?php echo esc_html($benefit1); ?></li>
+                            <?php endif; 
+                            
+                            if (!empty(trim($benefit2))): ?>
+                                <li><i class="dashicons dashicons-yes-alt"></i> <?php echo esc_html($benefit2); ?></li>
+                            <?php endif; 
+                            
+                            if (!empty(trim($benefit3))): ?>
+                                <li><i class="dashicons dashicons-yes-alt"></i> <?php echo esc_html($benefit3); ?></li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                     
