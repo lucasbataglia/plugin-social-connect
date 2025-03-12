@@ -320,7 +320,6 @@ class Social_Connect_Public {
                                     <i class="dashicons dashicons-twitch"></i>
                                 </div>
                                 <h4><?php _e('Conecte seu perfil da Twitch', 'social-connect'); ?></h4>
-                                <p><?php _e('Conectando sua conta Twitch, você pode receber benefícios exclusivos como assinante e seguidor.', 'social-connect'); ?></p>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -408,7 +407,6 @@ class Social_Connect_Public {
                                     <i class="dashicons dashicons-twitter"></i>
                                 </div>
                                 <h4><?php _e('Conecte seu perfil do X (Twitter)', 'social-connect'); ?></h4>
-                                <p><?php _e('Conectando sua conta X, você pode compartilhar atualizações e receber conteúdo exclusivo.', 'social-connect'); ?></p>
                             </div>
                         <?php endif; ?>
                     </div>
