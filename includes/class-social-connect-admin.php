@@ -398,6 +398,16 @@ class Social_Connect_Admin {
             'social-connect-twitter',
             array($this, 'display_twitter_tabs_page')
         );
+        
+        // Submenu para Steam - Página com abas internas
+        add_submenu_page(
+            'social-connect',
+            __('Steam', 'social-connect'),
+            __('Steam', 'social-connect'),
+            'manage_options',
+            'social-connect-steam',
+            array($this, 'display_steam_tabs_page')
+        );
     }
     
     /**
@@ -440,6 +450,54 @@ class Social_Connect_Admin {
         register_setting('social_connect_twitter', 'social_connect_twitter_client_secret');
         register_setting('social_connect_twitter', 'social_connect_twitter_redirect_uri');
         register_setting('social_connect_twitter', 'social_connect_twitter_username');
+        
+        // Grupo de configurações Steam
+        register_setting('social_connect_steam', 'social_connect_steam_api_key');
+        register_setting('social_connect_steam', 'social_connect_steam_game_id');
+        
+        // Seção principal para a Steam
+        add_settings_section(
+            'social_connect_steam_section',
+            __('Integração com Steam', 'social-connect'),
+            array($this, 'steam_section_callback'),
+            'social_connect_steam'
+        );
+        
+        // Seção para configurações da API da Steam
+        add_settings_section(
+            'social_connect_steam_api_section',
+            __('Configurações da API da Steam', 'social-connect'),
+            array($this, 'steam_api_section_callback'),
+            'social_connect_steam'
+        );
+        
+        // Campo API Key
+        add_settings_field(
+            'social_connect_steam_api_key',
+            __('API Key', 'social-connect'),
+            array($this, 'steam_api_key_callback'),
+            'social_connect_steam',
+            'social_connect_steam_api_section'
+        );
+        
+        // Campo Game ID
+        add_settings_field(
+            'social_connect_steam_game_id',
+            __('Game ID', 'social-connect'),
+            array($this, 'steam_game_id_callback'),
+            'social_connect_steam',
+            'social_connect_steam_section'
+        );
+        
+        // Campo Trade URL
+        register_setting('social_connect_steam', 'social_connect_steam_trade_url_field');
+        add_settings_field(
+            'social_connect_steam_trade_url_field',
+            __('Campo de Trade URL', 'social-connect'),
+            array($this, 'steam_trade_url_field_callback'),
+            'social_connect_steam',
+            'social_connect_steam_section'
+        );
         
         // Seção principal para a Twitch
         add_settings_section(
@@ -2130,5 +2188,144 @@ class Social_Connect_Admin {
         $username = get_option('social_connect_twitter_username');
         echo '<input type="text" id="social_connect_twitter_username" name="social_connect_twitter_username" value="' . esc_attr($username) . '" class="regular-text">';
         echo '<p class="description">' . __('Informe seu nome de usuário no X (sem o @).', 'social-connect') . '</p>';
+    }
+    
+    /**
+     * Callback para seção Steam.
+     */
+    public function steam_section_callback() {
+        echo '<p>' . __('Gerencie as integrações e funcionalidades relacionadas à Steam.', 'social-connect') . '</p>';
+    }
+    
+    /**
+     * Callback para seção da API da Steam.
+     */
+    public function steam_api_section_callback() {
+        echo '<p>' . __('Configure as credenciais da API da Steam.', 'social-connect') . '</p>';
+        echo '<p>' . __('Você precisa registrar uma chave API no <a href="https://steamcommunity.com/dev/apikey" target="_blank">Portal de Desenvolvedores da Steam</a>.', 'social-connect') . '</p>';
+    }
+    
+    /**
+     * Callback para campo API Key da Steam.
+     */
+    public function steam_api_key_callback() {
+        $api_key = get_option('social_connect_steam_api_key');
+        echo '<input type="text" id="social_connect_steam_api_key" name="social_connect_steam_api_key" value="' . esc_attr($api_key) . '" class="regular-text">';
+        echo '<p class="description">' . __('Informe a Steam Web API Key da sua aplicação.', 'social-connect') . '</p>';
+    }
+    
+    /**
+     * Callback para campo Game ID da Steam.
+     */
+    public function steam_game_id_callback() {
+        $game_id = get_option('social_connect_steam_game_id');
+        echo '<input type="text" id="social_connect_steam_game_id" name="social_connect_steam_game_id" value="' . esc_attr($game_id) . '" class="regular-text">';
+        echo '<p class="description">' . __('Informe o ID do jogo principal na Steam (opcional).', 'social-connect') . '</p>';
+    }
+    
+    /**
+     * Callback para campo de Trade URL da Steam.
+     */
+    public function steam_trade_url_field_callback() {
+        $field = get_option('social_connect_steam_trade_url_field', 'steam_trade_url');
+        echo '<input type="text" id="social_connect_steam_trade_url_field" name="social_connect_steam_trade_url_field" value="' . esc_attr($field) . '" class="regular-text">';
+        echo '<p class="description">' . __('Nome do campo em que os usuários já cadastraram seus Trade URLs (por padrão, "steam_trade_url").', 'social-connect') . '</p>';
+        echo '<p class="description">' . __('Este plugin usará este campo para obter o Trade URL dos usuários em vez de pedir que eles conectem novamente.', 'social-connect') . '</p>';
+    }
+    
+    /**
+     * Renderiza a página com abas da Steam.
+     */
+    public function display_steam_tabs_page() {
+        // Determina qual aba está ativa
+        $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'settings';
+        
+        // URL base da página
+        $page_url = admin_url('admin.php?page=social-connect-steam');
+        ?>
+        <div class="wrap">
+            <h1><?php _e('Steam - Social Connect', 'social-connect'); ?></h1>
+            
+            <!-- Abas -->
+            <h2 class="nav-tab-wrapper">
+                <a href="<?php echo esc_url($page_url . '&tab=settings'); ?>" 
+                   class="nav-tab <?php echo $active_tab == 'settings' ? 'nav-tab-active' : ''; ?>">
+                    <?php _e('Configurações', 'social-connect'); ?>
+                </a>
+                <a href="<?php echo esc_url($page_url . '&tab=accounts'); ?>" 
+                   class="nav-tab <?php echo $active_tab == 'accounts' ? 'nav-tab-active' : ''; ?>">
+                    <?php _e('Contas Conectadas', 'social-connect'); ?>
+                </a>
+                <a href="<?php echo esc_url($page_url . '&tab=inventory'); ?>" 
+                   class="nav-tab <?php echo $active_tab == 'inventory' ? 'nav-tab-active' : ''; ?>">
+                    <?php _e('Inventário', 'social-connect'); ?>
+                </a>
+            </h2>
+            
+            <!-- Conteúdo das abas -->
+            <?php
+            if ($active_tab == 'settings') {
+                $this->display_steam_settings_content();
+            } elseif ($active_tab == 'accounts') {
+                $this->display_steam_accounts_content();
+            } elseif ($active_tab == 'inventory') {
+                $this->display_steam_inventory_content();
+            }
+            ?>
+        </div>
+        <?php
+    }
+    
+    /**
+     * Renderiza o conteúdo da aba de configurações da Steam.
+     */
+    private function display_steam_settings_content() {
+        ?>
+        <div class="tab-content">
+            <form method="post" action="options.php">
+                <?php
+                settings_fields('social_connect_steam');
+                do_settings_sections('social_connect_steam');
+                submit_button();
+                ?>
+            </form>
+        </div>
+        <?php
+    }
+    
+    /**
+     * Renderiza o conteúdo da aba de contas conectadas da Steam.
+     */
+    private function display_steam_accounts_content() {
+        ?>
+        <div class="tab-content">
+            <div class="notice notice-info">
+                <p><?php _e('Aqui você pode ver todas as contas de usuários que conectaram suas contas Steam via Trade URL.', 'social-connect'); ?></p>
+            </div>
+            
+            <div class="card" style="margin-top: 20px; padding: 15px;">
+                <p><?php _e('Esta seção será implementada em breve.', 'social-connect'); ?></p>
+                <p><?php _e('Aqui você poderá visualizar todos os usuários que conectaram suas contas Steam, bem como seus níveis e estatísticas.', 'social-connect'); ?></p>
+            </div>
+        </div>
+        <?php
+    }
+    
+    /**
+     * Renderiza o conteúdo da aba de inventário da Steam.
+     */
+    private function display_steam_inventory_content() {
+        ?>
+        <div class="tab-content">
+            <div class="notice notice-info">
+                <p><?php _e('Visualize informações sobre inventários de usuários na Steam.', 'social-connect'); ?></p>
+            </div>
+            
+            <div class="card" style="margin-top: 20px; padding: 15px;">
+                <p><?php _e('Esta seção será implementada em breve.', 'social-connect'); ?></p>
+                <p><?php _e('Aqui você poderá ver itens de inventário dos usuários que permitiram acesso através de suas Trade URLs.', 'social-connect'); ?></p>
+            </div>
+        </div>
+        <?php
     }
 }

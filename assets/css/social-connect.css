@@ -1,484 +1,585 @@
 /**
- * Social Connect CSS - Totalmente Redesenhado
+ * Social Connect CSS - Dark Mode 2025
  */
 
-/* Reset para forçar larguras iguais */
-.social-connect-connections > * {
-    box-sizing: border-box !important;
+/* Reset geral */
+.social-connect-dashboard * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 /* Container Principal */
-.social-connect-connections {
-    max-width: 900px;
-    width: 100% !important;
-    margin: 40px auto;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-    box-sizing: border-box !important;
-    padding: 0 !important;
+.social-connect-dashboard {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
 }
 
-/* Título Principal */
-.social-connect-connections h2 {
+/* Cabeçalho da seção */
+.social-connect-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.social-connect-header h1 {
     font-size: 32px;
-    font-weight: 700;
-    color: #1f1f1f;
-    margin-bottom: 30px;
+    font-weight: 800;
+    color: #f5f5f5;
+    margin-bottom: 12px;
     position: relative;
-    padding-bottom: 15px;
+    display: inline-block;
 }
 
-.social-connect-connections h2::after {
+.social-connect-header h1:after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 80px;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
     height: 4px;
-    background: linear-gradient(to right, #9146FF, #6441a5);
+    background: linear-gradient(90deg, #9146FF, #1DA1F2);
     border-radius: 4px;
 }
 
-/* Cards das Redes Sociais */
-.social-connect-account {
-    background-color: #ffffff;
+.social-connect-subtitle {
+    font-size: 16px;
+    color: #b0b0b0;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+/* Grid para os cards */
+.social-connect-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
+
+/* Cards das redes sociais */
+.social-card {
+    background-color: #1a1a1a;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    height: auto;
     display: flex;
     flex-direction: column;
-    width: 100%; /* Ensure full width of container */
+    height: 100%;
+    position: relative;
 }
 
-.social-connect-account:hover {
+.social-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
 }
 
-/* Cabeçalho do Card */
-.social-connect-header {
-    padding: 30px;
+/* Cabeçalho do card */
+.social-card-header {
+    padding: 20px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    justify-content: space-between;
 }
 
-.social-connect-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 12px;
+.social-card-platform {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.social-card-platform h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.platform-icon, .twitter-icon {
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 20px;
-    flex-shrink: 0;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
-.social-connect-icon img,
-.social-connect-icon svg {
-    width: 40px;
-    height: 40px;
-    display: block;
+/* Badge de status de conexão */
+.connection-badge {
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 30px;
+    padding: 5px 12px;
+    display: inline-flex;
+    align-items: center;
 }
 
-.social-connect-title {
+.connection-badge.connected {
+    background-color: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.connection-badge.connected:before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #2ecc71;
+    margin-right: 6px;
+}
+
+.connection-badge.not-connected {
+    background-color: rgba(149, 165, 166, 0.1);
+    color: #95a5a6;
+    border: 1px solid rgba(149, 165, 166, 0.2);
+}
+
+.connection-badge.not-connected:before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #95a5a6;
+    margin-right: 6px;
+}
+
+/* Conteúdo do card */
+.social-card-content {
+    padding: 20px;
     flex-grow: 1;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.social-connect-title h3 {
-    margin: 0;
+/* Informações do perfil */
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #2d2d2d;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-avatar-placeholder {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-avatar-placeholder:after {
+    content: '\f110';
+    font-family: dashicons;
     font-size: 24px;
-    font-weight: 700;
-    color: #1f1f1f;
+    color: #777;
 }
 
-.social-connect-title p {
-    margin: 5px 0 0;
-    font-size: 14px;
-    color: #666;
-}
-
-/* Conteúdo do Card */
-.social-connect-content {
-    padding: 30px;
+.profile-details {
     flex-grow: 1;
+}
+
+.profile-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: #f0f0f0;
+}
+
+.profile-username {
+    font-size: 14px;
+    color: #b0b0b0;
+}
+
+/* Métricas do perfil */
+.profile-metrics {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.metrics-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+}
+
+.metric {
     display: flex;
     flex-direction: column;
-}
-
-/* Status */
-.social-connect-status {
-    margin-bottom: 25px;
-}
-
-.social-connect-connected,
-.social-connect-not-connected {
-    display: inline-flex;
     align-items: center;
-    padding: 8px 16px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 500;
 }
 
-.social-connect-connected {
-    background-color: rgba(30, 215, 96, 0.1);
-    color: #1ed760;
-    border: 1px solid rgba(30, 215, 96, 0.2);
+.metric-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #f0f0f0;
 }
 
-.social-connect-connected::before {
-    content: '';
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #1ed760;
-    margin-right: 8px;
+.metric-label {
+    font-size: 12px;
+    color: #b0b0b0;
+    margin-top: 3px;
 }
 
-.social-connect-not-connected {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: #666;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.social-connect-not-connected::before {
-    content: '';
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #ccc;
-    margin-right: 8px;
-}
-
-/* Satus de Follow */
-.social-connect-follow-status,
-.social-connect-sub-status {
+/* Status de relacionamento (seguindo, assinante) */
+.relationship-status {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     margin-top: 15px;
-    font-size: 14px;
 }
 
-.follows-yes,
-.follows-no,
-.sub-yes,
-.sub-no {
+.relationship-badge {
     display: inline-flex;
     align-items: center;
-    padding: 6px 12px;
-    border-radius: 6px;
+    font-size: 13px;
     font-weight: 500;
+    border-radius: 6px;
+    padding: 6px 12px;
 }
 
-.follows-yes,
-.sub-yes {
-    background-color: rgba(30, 215, 96, 0.1);
-    color: #1ed760;
+.relationship-badge.following {
+    background-color: rgba(52, 152, 219, 0.15);
+    color: #59aaeb;
 }
 
-.follows-yes::before,
-.sub-yes::before {
-    content: '✓';
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    line-height: 18px;
+.relationship-badge.subscribed {
+    background-color: rgba(155, 89, 182, 0.15);
+    color: #bb6fd3;
+}
+
+.relationship-badge .dashicons {
+    margin-right: 6px;
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+/* Prompt para conexão */
+.connection-prompt {
     text-align: center;
-    border-radius: 50%;
-    background-color: #1ed760;
-    color: white;
-    margin-right: 8px;
-    font-size: 12px;
+    padding: 30px 20px;
 }
 
-.follows-no,
-.sub-no {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: #666;
+.prompt-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 32px;
 }
 
-.follows-no::before,
-.sub-no::before {
-    content: '×';
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    line-height: 18px;
-    text-align: center;
-    border-radius: 50%;
-    background-color: #ccc;
-    color: white;
-    margin-right: 8px;
-    font-size: 12px;
+.connection-prompt h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #f0f0f0;
+}
+
+.connection-prompt p {
+    font-size: 14px;
+    color: #b0b0b0;
+    line-height: 1.5;
+    max-width: 250px;
+    margin: 0 auto;
 }
 
 /* Benefícios */
-.social-connect-benefits {
-    margin-top: auto;
-    padding-top: 25px;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+.social-card-benefits {
+    padding: 20px;
 }
 
-.social-connect-benefits h4 {
-    font-size: 16px;
-    font-weight: 600;
-    color: #1f1f1f;
-    margin: 0 0 15px;
-}
-
-.social-connect-benefits ul {
+.benefit-list {
+    list-style: none;
     margin: 0;
     padding: 0;
-    list-style: none;
 }
 
-.social-connect-benefits li {
-    margin-bottom: 8px;
-    padding-left: 24px;
-    position: relative;
-    font-size: 14px;
-    color: #666;
-}
-
-.social-connect-benefits li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 4px;
-    width: 16px;
-    height: 16px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%23666' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-/* Ações */
-.social-connect-actions {
-    margin-top: 30px;
+.benefit-list li {
+    margin-bottom: 10px;
     display: flex;
-    gap: 10px;
+    align-items: flex-start;
+    font-size: 14px;
+    color: #b0b0b0;
 }
 
-.social-connect-button,
-.social-connect-disconnect-button {
+.benefit-list li .dashicons {
+    margin-right: 8px !important;
+    color: #2ecc71 !important;
+    width: 16px !important;
+    height: 16px !important;
+    font-size: 16px !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+}
+
+/* Botões de ação */
+.social-card-actions {
+    padding: 20px 20px 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.connect-button, .disconnect-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 24px;
-    border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 10px;
     text-decoration: none;
     transition: all 0.2s ease;
-    cursor: pointer;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
-.social-connect-button {
-    background-color: #1f1f1f;
+.connect-button {
+    background-color: #444;
     color: white !important;
     border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
 }
 
-.social-connect-button:hover {
-    background-color: #000;
+.connect-button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0), 
+        rgba(255, 255, 255, 0.4), 
+        rgba(255, 255, 255, 0));
+}
+
+.connect-button:hover {
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.social-connect-disconnect-button {
-    background-color: transparent;
+.connect-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.connect-button .connect-icon {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.disconnect-button {
+    background-color: rgba(231, 76, 60, 0.1);
     color: #e74c3c !important;
-    border: 1px solid #e74c3c;
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    padding: 12px 24px;
+    height: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 4px;
+    position: relative;
+    overflow: hidden;
 }
 
-.social-connect-disconnect-button:hover {
-    background-color: rgba(231, 76, 60, 0.08);
+.disconnect-button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0), 
+        rgba(255, 255, 255, 0.3), 
+        rgba(255, 255, 255, 0));
+}
+
+.disconnect-button:hover {
+    background-color: rgba(231, 76, 60, 0.15);
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.2);
+    border-color: rgba(231, 76, 60, 0.5);
 }
 
-.social-connect-disconnect-button::before {
-    content: '';
-    display: inline-block;
-    width: 16px;
-    height: 16px;
+.disconnect-button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.disconnect-button .dashicons,
+.disconnect-button i.dashicons {
     margin-right: 8px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%23e74c3c' d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-11.414L9.172 7.757 7.757 9.172 10.586 12l-2.829 2.828 1.415 1.415L12 13.414l2.828 2.829 1.415-1.415L13.414 12l2.829-2.828-1.415-1.415L12 10.586z'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
+    transition: transform 0.2s ease;
 }
 
-/* Personalização Twitch */
-.social-connect-account.twitch {
-    width: 100% !important; /* Force Twitch card to use full width */
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+.disconnect-button:hover .dashicons,
+.disconnect-button:hover i.dashicons {
+    transform: rotate(90deg);
 }
 
-.social-connect-account.twitch .social-connect-header {
-    background-color: #9146FF;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding-left: 30px !important;
-    padding-right: 30px !important;
-}
-
-.social-connect-account.twitch .social-connect-title h3 {
+/* Personalização para Twitch */
+.twitch-card .social-card-header {
+    background-color: rgba(145, 70, 255, 0.2);
+    border-bottom: 2px solid #9146FF;
     color: white;
 }
 
-.social-connect-account.twitch .social-connect-title p {
-    color: rgba(255, 255, 255, 0.8);
+.twitch-card .social-card-platform h3 {
+    color: #f0f0f0;
 }
 
-.social-connect-account.twitch .social-connect-content {
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding-left: 30px !important;
-    padding-right: 30px !important;
+.twitch-card .prompt-icon {
+    background-color: rgba(145, 70, 255, 0.15);
+    color: #9146FF;
 }
 
-.social-connect-account.twitch .social-connect-icon {
-    background-color: white;
+.twitch-connect {
+    background-color: #9146FF !important;
 }
 
-.twitch-connect-button {
-    background-color: #9146FF;
+.twitch-connect:hover {
+    background-color: #7b30ff !important;
 }
 
-.twitch-connect-button:hover {
-    background-color: #7b30ff;
-}
-
-.twitch-connect-button::before {
-    content: '';
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin-right: 8px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%23FFFFFF' d='M4.3 3H21v11.7l-4.7 4.7h-3.9l-2.5 2.4H7v-2.4H3V7.2L4.3 3zM5 17.4h4v2.4h.095l2.5-2.4h3.9L19 13.9V5H5v12.4zM15 8h2v4.7h-2V8zm-5 0h2v4.7h-2V8z'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.social-connect-account.twitch .social-connect-benefits h4::before {
-    content: '🎮';
-    margin-right: 8px;
-}
-
-.social-connect-account.twitch .social-connect-benefits li::before {
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%239146FF' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-/* Personalização Twitter/X */
-.social-connect-account.twitter {
-    width: 100% !important; /* Force Twitter card to use full width */
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-}
-
-.social-connect-account.twitter .social-connect-header {
-    background-color: #1DA1F2;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding-left: 30px !important;
-    padding-right: 30px !important;
-}
-
-.social-connect-account.twitter .social-connect-title h3 {
+/* Personalização para Twitter */
+.twitter-card .social-card-header {
+    background-color: rgba(29, 161, 242, 0.2);
+    border-bottom: 2px solid #1DA1F2;
     color: white;
 }
 
-.social-connect-account.twitter .social-connect-title p {
-    color: rgba(255, 255, 255, 0.8);
+.twitter-card .social-card-platform h3 {
+    color: #f0f0f0;
 }
 
-.social-connect-account.twitter .social-connect-content {
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding-left: 30px !important;
-    padding-right: 30px !important;
-}
-
-.social-connect-account.twitter .social-connect-icon {
-    background-color: white;
-}
-
-.twitter-connect-button {
+.twitter-card .twitter-icon {
     background-color: #1DA1F2;
 }
 
-.twitter-connect-button:hover {
-    background-color: #0c8ad6;
+.twitter-card .prompt-icon {
+    background-color: rgba(29, 161, 242, 0.15);
+    color: #1DA1F2;
 }
 
-.twitter-connect-button::before {
-    content: '';
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin-right: 8px;
-    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.34 10.47l5.11-6h-4.06l-3.09 3.62-2.62-3.62H3.72l4.42 6.07-5.35 6.26h4.06l3.33-3.88 2.84 3.88h4.95l-4.63-6.33zm-1.88 2.2l-.39-.53-3.12-4.22h2.02l2.51 3.41.39.53 3.27 4.42h-2.02l-2.66-3.61z' fill='%23FFFFFF'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
+.twitter-connect {
+    background-color: #1DA1F2 !important;
 }
 
-.social-connect-account.twitter .social-connect-benefits h4::before {
-    content: '🐦';
-    margin-right: 8px;
+.twitter-connect:hover {
+    background-color: #0c8ad6 !important;
 }
 
-.social-connect-account.twitter .social-connect-benefits li::before {
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%231DA1F2' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
+/* Efeitos de neon sutis */
+.twitch-card {
+    box-shadow: 0 5px 20px rgba(145, 70, 255, 0.15);
 }
 
-/* Media Queries */
+.twitter-card {
+    box-shadow: 0 5px 20px rgba(29, 161, 242, 0.15);
+}
+
+/* Responsividade */
 @media (max-width: 767px) {
-    .social-connect-connections {
-        padding: 0 20px;
-        width: 100%;
+    .social-connect-grid {
+        grid-template-columns: 1fr;
     }
     
-    .social-connect-connections h2 {
-        font-size: 26px;
+    .social-connect-header h1 {
+        font-size: 28px;
     }
     
-    .social-connect-header {
-        padding: 20px;
-        width: 100%;
+    .social-connect-dashboard {
+        padding: 30px 15px;
     }
     
-    .social-connect-content {
-        padding: 20px;
-        width: 100%;
-    }
-    
-    .social-connect-account,
-    .social-connect-account.twitter,
-    .social-connect-account.twitch {
-        width: 100%;
-        max-width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-    }
-    
-    .social-connect-actions {
+    .profile-info {
         flex-direction: column;
-        width: 100%;
+        text-align: center;
     }
     
-    .social-connect-button,
-    .social-connect-disconnect-button {
-        width: 100%;
+    .metrics-row {
+        justify-content: center;
     }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .social-connect-grid {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+/* Animação de carregamento */
+@keyframes rotation {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(359deg); }
+}
+
+/* Estilização para dashicons */
+.social-connect-dashboard .dashicons,
+.social-connect-dashboard .dashicons-before:before {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 20px !important;
+    line-height: 1 !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    font-family: dashicons !important;
+}
+
+/* Estilização específica para badges de relacionamento */
+.relationship-badge .dashicons {
+    width: 16px !important;
+    height: 16px !important;
+    font-size: 16px !important;
+    margin-right: 6px !important;
+}
+
+/* Scrollbar personalizada */
+.social-connect-dashboard ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.social-connect-dashboard ::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 4px;
+}
+
+.social-connect-dashboard ::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+.social-connect-dashboard ::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

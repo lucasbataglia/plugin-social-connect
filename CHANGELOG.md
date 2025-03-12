@@ -5,6 +5,41 @@ Todas as alterações notáveis para este projeto serão documentadas neste arqu
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.5.0] - 2025-03-14
+
+### Adicionado
+- Interface de dark mode para a página de conexões sociais
+- Design moderno com cards para Twitter e Twitch
+- Efeitos visuais sutis nos elementos de interface
+- Novos badges para status de relacionamento (seguindo, assinante)
+- Integração nativa com Dashicons para melhorar a compatibilidade
+
+### Melhorado
+- Redesign completo da interface de conexões sociais
+- Experiência mais intuitiva e moderna para o usuário
+- Responsividade aprimorada para dispositivos móveis
+- Compatibilidade com temas escuros
+- Feedback visual mais claro para ações de conexão/desconexão
+
+### Corrigido
+- Compatibilidade de Dashicons em diversos temas
+- Problemas de exibição de ícones em dispositivos móveis
+- Ajuste de botões para evitar clipping e melhorar exibição
+
+## [1.4.0] - 2025-03-13
+
+### Adicionado
+- Integração com Steam usando Trade URLs existentes
+- Novo menu administrativo para Steam no painel WordPress
+- Sistema de configuração para a API da Steam
+- Campo personalizável para definir meta onde estão armazenados os Trade URLs
+- Estrutura de abas para configurações, contas conectadas e inventário da Steam
+- Preparação para futura implementação de análise de inventário
+
+### Melhorado
+- Estrutura de documentação com inclusão da nova plataforma
+- Organização do código seguindo o padrão das outras integrações
+
 ## [1.3.0] - 2025-03-12
 
 ### Adicionado

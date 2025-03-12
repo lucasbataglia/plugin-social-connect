@@ -1,6 +1,6 @@
 # Social Connect - WordPress Plugin
 
-Plugin para integração de contas sociais (Twitter/X e Twitch) com WordPress/WooCommerce.
+Plugin para integração de contas sociais (Twitter/X, Twitch e Steam) com WordPress/WooCommerce.
 
 Desenvolvido por [Lucas Batalgia](https://github.com/lucasbataglia).
 
@@ -21,6 +21,12 @@ Desenvolvido por [Lucas Batalgia](https://github.com/lucasbataglia).
 - Visualização de canais seguidos pelo usuário
 - Sistema de recompensas para assinantes
 - Atualização manual e automática (CRON) de métricas
+
+### Integração Steam
+- Suporte a Trade URLs existentes (sem necessidade de nova autenticação)
+- Configuração de campo customizado para Trade URL
+- Interface de administração para visualizar contas conectadas
+- Suporte para acompanhamento de inventário (em breve)
 
 ## Integração com WooCommerce
 
@@ -59,6 +65,7 @@ O plugin adiciona uma nova seção "Conexões" na conta do cliente no WooCommerc
 - `includes/class-social-connect-admin.php` - Interface de administração
 - `includes/class-social-connect-twitter.php` - Integração com Twitter
 - `includes/class-social-connect-twitch.php` - Integração com Twitch
+- `includes/class-social-connect-steam.php` - Integração com Steam (em desenvolvimento)
 - `includes/class-social-connect-loader.php` - Gerenciamento de hooks
 - `includes/class-social-connect-public.php` - Interface pública
 - `assets/css/social-connect.css` - Estilos front-end
@@ -118,6 +125,16 @@ O plugin adiciona uma nova seção "Conexões" na conta do cliente no WooCommerc
 - `social_connect_twitch_subscription_tier_name` - Nome do tier de assinatura
 - `social_connect_twitch_last_update` - Data da última atualização de métricas
 
+### Steam (planejado)
+- `social_connect_steam_connected` - Status da conexão
+- `social_connect_steam_steamid` - ID do usuário na Steam
+- `social_connect_steam_trade_url` - URL de troca (Trade URL)
+- `social_connect_steam_username` - Nome de usuário na Steam
+- `social_connect_steam_profile_url` - URL do perfil na Steam
+- `social_connect_steam_avatar` - URL da imagem de avatar
+- `social_connect_steam_level` - Nível da conta Steam
+- `social_connect_steam_last_update` - Data da última atualização de métricas
+
 ## Configurações
 
 O plugin adiciona várias opções ao WordPress:
@@ -138,6 +155,11 @@ O plugin adiciona várias opções ao WordPress:
 - `social_connect_twitch_reward_tier3` - Valor da recompensa para Tier 3
 - `social_connect_twitch_reward_frequency` - Frequência das recompensas (diário, semanal, mensal)
 
+### Steam
+- `social_connect_steam_api_key` - API Key da Steam Web API
+- `social_connect_steam_game_id` - ID do jogo principal na Steam (opcional)
+- `social_connect_steam_trade_url_field` - Nome do campo customizado onde estão armazenados os Trade URLs
+
 ## Dependências
 
 - WordPress 5.0+
@@ -156,6 +178,10 @@ O plugin adiciona várias opções ao WordPress:
 - `user:read:subscriptions` - Verificar assinaturas do usuário
 - `channel:read:subscriptions` - Verificar assinantes do canal
 
+### Steam
+- A API da Steam utiliza uma chave API única para todas as requisições
+- O acesso a dados de inventário requer que o usuário tenha configurado corretamente as permissões de privacidade
+
 ## Troubleshooting
 
 ### Problemas Comuns
@@ -173,6 +199,8 @@ Erros da API são registrados quando WP_DEBUG está ativado. Verifique o arquivo
 - [ ] Suporte a mais plataformas sociais (Instagram, Facebook, etc.)
 - [ ] Visualização de gráficos de crescimento
 - [ ] Integração com sistemas de pontos/recompensas adicionais
+- [ ] Implementação completa da funcionalidade de inventário da Steam
+- [ ] Análise de valor de inventário da Steam
 
 ## Changelog
 
@@ -193,3 +221,18 @@ Erros da API são registrados quando WP_DEBUG está ativado. Verifique o arquivo
 - Adicionada atualização manual individual para Twitter e Twitch
 - Adicionada visualização de canais seguidos no Twitch
 - Melhorias visuais e de usabilidade
+
+### 1.4.0
+- Adicionada integração com Steam usando Trade URLs
+- Interface administrativa para Steam
+- Suporte para configuração de campo customizado para Trade URLs
+- Preparação para futura análise de inventário
+
+### 1.5.0
+- Interface de dark mode para a página de conexões sociais
+- Design moderno com cards para Twitter e Twitch
+- Efeitos visuais e melhorias na experiência do usuário
+- Badges para status de relacionamento (seguindo, assinante)
+- Compatibilidade aprimorada com Dashicons
+- Redesign completo da interface de frontend
+- Otimizações para dispositivos móveis e temas escuros

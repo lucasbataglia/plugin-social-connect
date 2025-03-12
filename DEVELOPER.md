@@ -18,7 +18,8 @@ social-connect/
 │   ├── class-social-connect-loader.php     # Gerenciador de hooks
 │   ├── class-social-connect-public.php     # Interface pública
 │   ├── class-social-connect-twitter.php    # Integração Twitter
-│   └── class-social-connect-twitch.php     # Integração Twitch
+│   ├── class-social-connect-twitch.php     # Integração Twitch
+│   └── class-social-connect-steam.php      # Integração Steam (futura)
 ├── CHANGELOG.md            # Histórico de alterações
 ├── DEVELOPER.md            # Este documento
 ├── README.md               # Documentação geral
@@ -27,7 +28,7 @@ social-connect/
 
 ## Arquitetura
 
-O plugin usa o padrão de design "Factory" com uma classe de carregador que gerencia todos os hooks do WordPress. Cada componente principal (Admin, Public, Twitter, Twitch) é implementado como uma classe separada para facilitar a manutenção.
+O plugin usa o padrão de design "Factory" com uma classe de carregador que gerencia todos os hooks do WordPress. Cada componente principal (Admin, Public, Twitter, Twitch, Steam) é implementado como uma classe separada para facilitar a manutenção.
 
 ### Classe Principal (Social_Connect)
 
@@ -118,6 +119,14 @@ Para adicionar suporte a uma nova plataforma social:
 4. Inclua a interface do usuário no método `connections_content()` em `class-social-connect-public.php`
 5. Registre os hooks necessários em `class-social-connect.php`
 
+### Diferentes Abordagens de Integração
+
+O plugin demonstra três diferentes abordagens de integração:
+
+1. **Twitter/X** - Integração completa com OAuth 2.0, incluindo refreshing de token e solicitações de dados.
+2. **Twitch** - Integração com OAuth 2.0 e sistema avançado para gerenciar recompensas para assinantes.
+3. **Steam** - Integração que utiliza dados existentes (Trade URLs) em vez de solicitar nova autenticação.
+
 ## Trabalhando com Dados da Twitch
 
 ### Canais Seguidos
@@ -147,6 +156,31 @@ Para navegar por todos os canais seguidos, use o cursor na paginação.
 
 A API de assinaturas fornece informações sobre o tier e outros dados relacionados à assinatura.
 
+## Trabalhando com Dados da Steam
+
+### Trade URLs
+
+Os Trade URLs da Steam seguem o seguinte formato:
+```
+https://steamcommunity.com/tradeoffer/new/?partner=12345678&token=AbCdEfGh
+```
+
+Deste URL, podemos extrair:
+- **partner ID**: O número após "partner=" (exemplo: 12345678)
+- **token**: O código após "token=" (exemplo: AbCdEfGh)
+
+O partner ID pode ser convertido para o SteamID64 com a fórmula:
+```
+SteamID64 = partner_id + 76561197960265728
+```
+
+### Acessando Dados do Usuário
+
+Para acessar dados do usuário Steam, você precisa:
+1. Extrair o SteamID64 do Trade URL
+2. Fazer uma requisição para a API da Steam usando a chave API
+3. Processar os dados de resposta, respeitando as configurações de privacidade do usuário
+
 ## Interface JavaScript
 
 O plugin usa jQuery para manipulações DOM e solicitações AJAX. O código principal para o modal de canais seguidos se encontra no método `display_twitch_accounts_content()`.
@@ -168,7 +202,36 @@ O plugin usa jQuery para manipulações DOM e solicitações AJAX. O código pri
 
 ## Convenções CSS
 
-A interface administrativa usa as convenções do WordPress para consistência visual. Alguns estilos personalizados são adicionados para os cards de redes sociais e para o modal de canais seguidos.
+### Interface Administrativa
+A interface administrativa usa as convenções do WordPress para consistência visual, com alguns estilos personalizados adicionados para os cards de redes sociais e para o modal de canais seguidos.
+
+### Interface de Usuário (Frontend)
+A interface pública (frontend) usa um design moderno e responsivo, com as seguintes características:
+
+1. **Design Escuro (Dark Mode)**
+   - Esquema de cores escuras para melhor integração com temas modernos
+   - Background principal: `#1a1a1a`
+   - Cards com sombras sutis e efeitos de hover
+   - Tipografia clara e legível em fundos escuros
+
+2. **Cards Sociais**
+   - Layout baseado em grid CSS para responsividade
+   - Transições suaves em hover e cliques
+   - Header colorido específico para cada rede social
+   - Informações do perfil com avatar e nome de usuário
+   - Badges de status claros e informativos
+   - Botões de ação com feedback visual
+
+3. **Ícones e Elementos Visuais**
+   - Integração com Dashicons do WordPress
+   - Uso de SVGs para ícones das redes sociais
+   - Gradientes sutis para elementos de destaque
+   - Efeitos de profundidade e elevação
+
+4. **Responsividade**
+   - Grid que se adapta a diferentes tamanhos de tela
+   - Layout simplificado em dispositivos móveis
+   - Tamanhos de fonte relativos para melhor legibilidade
 
 ## Testes
 
@@ -190,3 +253,10 @@ Futuras implementações planejadas:
 3. Melhorias na interface de visualização de dados
 4. Sistema de autorização mais granular
 5. Exportação de dados
+
+### Próximos Passos para Steam
+
+1. Desenvolver a classe `class-social-connect-steam.php` para processar Trade URLs
+2. Implementar métodos para analisar e exibir inventários de usuários
+3. Adicionar suporte para cálculo de valor estimado de inventários
+4. Criar detecção automática de itens raros ou valiosos
