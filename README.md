@@ -2,6 +2,8 @@
 
 Plugin para integração de contas sociais (Twitter/X e Twitch) com WordPress/WooCommerce.
 
+Desenvolvido por [Lucas Batalgia](https://github.com/lucasbataglia).
+
 ## Funcionalidades
 
 ### Integração Twitter/X
